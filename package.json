@@ -1,0 +1,34 @@
+{
+  "name": "react-click-outside",
+  "version": "1.0.0",
+  "description": "A component wrapper that provides click outside detection.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel -d dist index.js",
+    "prepublish": "npm test && npm run build",
+    "test": "mocha --compilers js:babel/register --reporter nyan --require test-setup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kentor/react-click-outside"
+  },
+  "keywords": [
+    "click outside",
+    "higher order component",
+    "onclickoutside",
+    "react"
+  ],
+  "author": "Kenneth Chung <ken70r@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kentor/react-click-outside/issues"
+  },
+  "homepage": "https://github.com/kentor/react-click-outside",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "expect": "^1.11.1",
+    "jsdom": "^6.5.1",
+    "mocha": "^2.3.3",
+    "react": "^0.13.3"
+  }
+}
