@@ -6,7 +6,7 @@ var React = require('react');
 
 module.exports = function enhanceWithClickOutside(WrappedComponent) {
   if (!WrappedComponent.prototype.handleClickOutside) {
-    throw new Error(WrappedComponent.displayName + ' must implement `handleClickOutside`.');
+    throw new Error(WrappedComponent.displayName + ' must implement handleClickOutside().');
   }
 
   return React.createClass({
@@ -22,7 +22,8 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     },
 
     handleClickOutside: function handleClickOutside(e) {
-      if (!React.findDOMNode(this).contains(e.target)) {
+      var domNode = React.findDOMNode(this);
+      if (!domNode || !domNode.contains(e.target)) {
         this.refs.wrappedComponent.handleClickOutside(e);
       }
     },
