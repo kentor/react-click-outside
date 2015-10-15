@@ -23,7 +23,7 @@ describe('enhanceWithClickOutside', () => {
     }).toThrow('UncoolComponent must implement handleClickOutside().');
   });
 
-  it('calls the handleClickOutside when clicked outside of component', () => {
+  it('calls handleClickOutside when clicked outside of component', () => {
     const clickInsideSpy = expect.createSpy();
     const clickOutsideSpy = expect.createSpy();
 
@@ -69,7 +69,6 @@ describe('enhanceWithClickOutside', () => {
     });
 
     const rootComponent = React.render(<Root />, document.body);
-    const rootNode = React.findDOMNode(rootComponent);
 
     const enhancedComponent = rootComponent.refs.enhancedComponent;
     const enhancedNode = React.findDOMNode(enhancedComponent);
@@ -99,10 +98,10 @@ describe('enhanceWithClickOutside', () => {
     React.unmountComponentAtNode(document.body);
     expect(document.removeEventListener).toHaveBeenCalledWith(
       'click', enhancedComponent.handleClickOutside, true
-    )
+    );
   });
 
-  it('should always call the handleClickOutside if wrapped components render returns null', () => {
+  it('calls handleClickOutside even if wrapped component renders null', () => {
     const clickOutsideSpy = expect.createSpy();
 
     const WrappedComponent = React.createClass({
@@ -114,19 +113,20 @@ describe('enhanceWithClickOutside', () => {
 
       render() {
         return null;
-      }
+      },
     });
+
     const EnhancedComponent = enhanceWithClickOutside(WrappedComponent);
 
     const RootComponent = React.createClass({
       render() {
         return (
-            <div>
-              <EnhancedComponent ref="enhancedComponent" />
-            </div>
+          <div>
+            <EnhancedComponent ref="enhancedComponent" />
+          </div>
         );
-      }
-    })
+      },
+    });
 
     const rootComponent = React.render(<RootComponent />, document.body);
 
