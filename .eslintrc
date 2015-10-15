@@ -1,0 +1,8 @@
+---
+env:
+  mocha: true
+extends:
+  - kentor
+  - kentor/browser
+  - kentor/es6
+  - kentor/react

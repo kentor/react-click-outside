@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel -d dist index.js",
     "prepublish": "npm test && npm run build",
-    "test": "mocha --compilers js:babel/register --reporter nyan --require test-setup"
+    "lint": "eslint .",
+    "test": "npm run lint && mocha --compilers js:babel/register --reporter nyan --require test-setup"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,9 @@
   "homepage": "https://github.com/kentor/react-click-outside",
   "devDependencies": {
     "babel": "^5.8.23",
+    "eslint": "^1.6.0",
+    "eslint-config-kentor": "^1.0.0",
+    "eslint-plugin-react": "^3.5.1",
     "expect": "^1.11.1",
     "jsdom": "^6.5.1",
     "mocha": "^2.3.3",
