@@ -1,6 +1,7 @@
 const enhanceWithClickOutside = require('../index');
 const expect = require('expect');
 const React = require('react/addons');
+const ReactDOM = require('react-dom')
 
 function simulateClick(node) {
   const event = document.createEvent('Event');
@@ -68,16 +69,16 @@ describe('enhanceWithClickOutside', () => {
       },
     });
 
-    const rootComponent = React.render(<Root />, document.body);
+    const rootComponent = ReactDOM.render(<Root />, document.body);
 
     const enhancedComponent = rootComponent.refs.enhancedComponent;
-    const enhancedNode = React.findDOMNode(enhancedComponent);
+    const enhancedNode = ReactDOM.findDOMNode(enhancedComponent);
 
     const wrappedComponent = enhancedComponent.__wrappedComponent;
 
-    const nestedNode = React.findDOMNode(wrappedComponent.refs.nested);
+    const nestedNode = ReactDOM.findDOMNode(wrappedComponent.refs.nested);
 
-    const outsideNode = React.findDOMNode(rootComponent.refs.outsideComponent);
+    const outsideNode = ReactDOM.findDOMNode(rootComponent.refs.outsideComponent);
 
     simulateClick(enhancedNode);
     expect(clickInsideSpy.calls.length).toBe(1);
@@ -128,7 +129,7 @@ describe('enhanceWithClickOutside', () => {
       },
     });
 
-    const rootComponent = React.render(<RootComponent />, document.body);
+    const rootComponent = ReactDOM.render(<RootComponent />, document.body);
 
     // We shouldn't TypeError when we try to call handleClickOutside
     expect(() => {

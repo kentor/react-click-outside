@@ -35,6 +35,15 @@ const Dropdown = React.createClass({
 module.exports = enhanceWithClickOutside(Dropdown);
 ```
 
+Or, if you prefer decorators and are using ES6 with Babel stage 1:
+```js
+
+@enhanceWithClickOutside
+export default class Dropdown extends Component {
+  ...
+}
+```
+
 ## Details
 
 The `enhanceWithClickOutside` function wraps the provided component in another
