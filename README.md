@@ -3,6 +3,10 @@
 Enhance a React component with a Higher Order Component that provides click
 outside detection.
 
+**Note:** React 0.14 required for version >= 2.x. This assumes `react` and
+`react-dom` is installed in your project. Continue using version 1.x for React
+0.13 support.
+
 ## Usage
 Installation:
 
