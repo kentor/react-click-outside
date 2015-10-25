@@ -1,6 +1,6 @@
 const enhanceWithClickOutside = require('../index');
 const expect = require('expect');
-const React = require('react/addons');
+const React = require('react');
 
 function simulateClick(node) {
   const event = document.createEvent('Event');
