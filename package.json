@@ -1,6 +1,6 @@
 {
   "name": "react-click-outside",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A component wrapper that provides click outside detection.",
   "main": "dist/index.js",
   "scripts": {
