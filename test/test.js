@@ -10,6 +10,9 @@ function simulateClick(node) {
   return event;
 }
 
+const mountNode = document.createElement('div');
+document.body.appendChild(mountNode);
+
 describe('enhanceWithClickOutside', () => {
   it('throws an error if component does not provide handleClickOutside', () => {
     expect(() => {
@@ -69,7 +72,7 @@ describe('enhanceWithClickOutside', () => {
       },
     });
 
-    const rootComponent = ReactDOM.render(<Root />, document.body);
+    const rootComponent = ReactDOM.render(<Root />, mountNode);
 
     const enhancedComponent = rootComponent.refs.enhancedComponent;
     const enhancedNode = ReactDOM.findDOMNode(enhancedComponent);
@@ -98,7 +101,7 @@ describe('enhanceWithClickOutside', () => {
     expect(clickOutsideSpy).toHaveBeenCalledWith(event);
 
     expect.spyOn(document, 'removeEventListener').andCallThrough();
-    ReactDOM.unmountComponentAtNode(document.body);
+    ReactDOM.unmountComponentAtNode(mountNode);
     expect(document.removeEventListener).toHaveBeenCalledWith(
       'click', enhancedComponent.handleClickOutside, true
     );
@@ -131,7 +134,7 @@ describe('enhanceWithClickOutside', () => {
       },
     });
 
-    const rootComponent = ReactDOM.render(<RootComponent />, document.body);
+    const rootComponent = ReactDOM.render(<RootComponent />, mountNode);
 
     // We shouldn't TypeError when we try to call handleClickOutside
     expect(() => {
