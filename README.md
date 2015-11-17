@@ -56,7 +56,7 @@ case.
 
 ## Limitations
 
-- IE9+ due to [`addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) and usage of the event capturing phase.
+- IE9+ due to the usage of the event capturing phase.
 
 ## License
 
