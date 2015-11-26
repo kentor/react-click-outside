@@ -145,4 +145,25 @@ describe('enhanceWithClickOutside', () => {
     // click, so we should call the inner handleClickOutside always
     expect(clickOutsideSpy.calls.length).toBe(1);
   });
+
+  describe('displayName', () => {
+    it('gets set for React.createClass', () => {
+      const ReactClass = React.createClass({
+        displayName: 'ReactClass',
+        handleClickOutside() {},
+        render() {},
+      });
+      const Wrapped = enhanceWithClickOutside(ReactClass);
+      expect(Wrapped.displayName).toBe('WrappedReactClass');
+    });
+
+    it('gets set for ES6 classes', () => {
+      class ES6Class extends React.Component {
+        handleClickOutside() {}
+        render() {}
+      }
+      const Wrapped = enhanceWithClickOutside(ES6Class);
+      expect(Wrapped.displayName).toBe('WrappedES6Class');
+    });
+  });
 });
