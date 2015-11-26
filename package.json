@@ -27,13 +27,13 @@
   "homepage": "https://github.com/kentor/react-click-outside",
   "devDependencies": {
     "babel": "^5.8.23",
-    "eslint": "^1.6.0",
+    "eslint": "^1.10.1",
     "eslint-config-kentor": "^1.0.0",
-    "eslint-plugin-react": "^3.5.1",
-    "expect": "^1.11.1",
-    "jsdom": "^6.5.1",
-    "mocha": "^2.3.3",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "eslint-plugin-react": "^3.10.0",
+    "expect": "^1.13.0",
+    "jsdom": "^7.1.0",
+    "mocha": "^2.3.4",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
   }
 }
