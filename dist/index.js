@@ -6,12 +6,14 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 module.exports = function enhanceWithClickOutside(WrappedComponent) {
+  var componentName = WrappedComponent.displayName || WrappedComponent.name;
+
   if (!WrappedComponent.prototype.handleClickOutside) {
-    throw new Error(WrappedComponent.displayName + ' must implement handleClickOutside().');
+    throw new Error(componentName + ' must implement handleClickOutside().');
   }
 
   return React.createClass({
-    displayName: 'Wrapped' + WrappedComponent.displayName,
+    displayName: 'Wrapped' + componentName,
 
     componentDidMount: function componentDidMount() {
       this.__wrappedComponent = this.refs.wrappedComponent;
