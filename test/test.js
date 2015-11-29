@@ -55,18 +55,12 @@ describe('enhanceWithClickOutside', () => {
 
     const EnhancedComponent = enhanceWithClickOutside(ToBeEnhancedComponent);
 
-    const OutsideComponent = React.createClass({
-      render() {
-        return <div />;
-      },
-    });
-
     const Root = React.createClass({
       render() {
         return (
           <div>
             <EnhancedComponent ref="enhancedComponent"/>
-            <OutsideComponent ref="outsideComponent" />
+            <div ref="outsideComponent" />
           </div>
         );
       },
@@ -81,9 +75,7 @@ describe('enhanceWithClickOutside', () => {
 
     const nestedNode = ReactDOM.findDOMNode(wrappedComponent.refs.nested);
 
-    const outsideNode = ReactDOM.findDOMNode(
-      rootComponent.refs.outsideComponent
-    );
+    const outsideNode = rootComponent.refs.outsideComponent;
 
     simulateClick(enhancedNode);
     expect(clickInsideSpy.calls.length).toBe(1);
