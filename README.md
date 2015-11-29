@@ -39,6 +39,9 @@ const Dropdown = React.createClass({
 module.exports = enhanceWithClickOutside(Dropdown);
 ```
 
+**Note:** There will be no error thrown if `handleClickOutside` is not
+implemented.
+
 ## Details
 
 The `enhanceWithClickOutside` function wraps the provided component in another
