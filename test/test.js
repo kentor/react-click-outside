@@ -101,36 +101,20 @@ describe('enhanceWithClickOutside', () => {
 
   it('calls handleClickOutside even if wrapped component renders null', () => {
     const clickOutsideSpy = expect.createSpy();
-
     const WrappedComponent = React.createClass({
-      displayName: 'NullComponent',
-
       handleClickOutside() {
         clickOutsideSpy();
       },
-
       render() {
         return null;
       },
     });
-
     const EnhancedComponent = enhanceWithClickOutside(WrappedComponent);
-
-    const RootComponent = React.createClass({
-      render() {
-        return (
-          <div>
-            <EnhancedComponent ref="enhancedComponent" />
-          </div>
-        );
-      },
-    });
-
-    const rootComponent = ReactDOM.render(<RootComponent />, mountNode);
+    const enhancedComponent = ReactDOM.render(<EnhancedComponent />, mountNode);
 
     // We shouldn't TypeError when we try to call handleClickOutside
     expect(() => {
-      rootComponent.refs.enhancedComponent.handleClickOutside();
+      enhancedComponent.handleClickOutside();
     }).toNotThrow(TypeError);
 
     // If the component returns null, technically every click is an outside
