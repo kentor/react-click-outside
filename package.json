@@ -7,7 +7,7 @@
     "build": "babel -d dist index.js",
     "prepublish": "npm test && npm run build",
     "lint": "eslint .",
-    "test": "npm run lint && mocha --compilers js:babel/register --reporter nyan --require test-setup"
+    "test": "npm run lint && mocha --compilers js:babel/register --require test-setup"
   },
   "repository": {
     "type": "git",
