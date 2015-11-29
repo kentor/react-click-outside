@@ -14,17 +14,8 @@ const mountNode = document.createElement('div');
 document.body.appendChild(mountNode);
 
 describe('enhanceWithClickOutside', () => {
-  it('throws an error if component does not provide handleClickOutside', () => {
-    expect(() => {
-      const Component = React.createClass({
-        displayName: 'UncoolComponent',
-
-        render() {
-          return null;
-        },
-      });
-      enhanceWithClickOutside(Component);
-    }).toThrow('UncoolComponent must implement handleClickOutside().');
+  afterEach(() => {
+    ReactDOM.unmountComponentAtNode(mountNode);
   });
 
   it('calls handleClickOutside when clicked outside of component', () => {
@@ -120,6 +111,17 @@ describe('enhanceWithClickOutside', () => {
     // If the component returns null, technically every click is an outside
     // click, so we should call the inner handleClickOutside always
     expect(clickOutsideSpy.calls.length).toBe(1);
+  });
+
+  it('does nothing if handleClickOutside is not implemented', () => {
+    const WrappedComponent = React.createClass({
+      render() {
+        return <div />;
+      },
+    });
+    const EnhancedComponent = enhanceWithClickOutside(WrappedComponent);
+    const enhancedComponent = ReactDOM.render(<EnhancedComponent />, mountNode);
+    enhancedComponent.handleClickOutside({});
   });
 
   describe('displayName', () => {
