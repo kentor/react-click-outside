@@ -10,10 +10,12 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     componentDidMount() {
       this.__wrappedComponent = this.refs.wrappedComponent;
       document.addEventListener('click', this.handleClickOutside, true);
+      document.addEventListener('mousedown', this.handleClickOutside, true);
     },
 
     componentWillUnmount() {
       document.removeEventListener('click', this.handleClickOutside, true);
+      document.removeEventListener('mousedown', this.handleClickOutside, true);
     },
 
     handleClickOutside(e) {
