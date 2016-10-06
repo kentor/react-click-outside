@@ -4,11 +4,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+var hoistNonReactStatic = require('hoist-non-react-statics');
 
 module.exports = function enhanceWithClickOutside(WrappedComponent) {
   var componentName = WrappedComponent.displayName || WrappedComponent.name;
 
-  return React.createClass({
+  var EnhancedComponent = React.createClass({
     displayName: 'Wrapped' + componentName,
 
     componentDidMount: function componentDidMount() {
@@ -31,4 +32,5 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
       return React.createElement(WrappedComponent, _extends({}, this.props, { ref: 'wrappedComponent' }));
     }
   });
+  return hoistNonReactStatic(EnhancedComponent, WrappedComponent);
 };
