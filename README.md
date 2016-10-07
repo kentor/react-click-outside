@@ -1,4 +1,6 @@
-# React Click Outside [![Build Status](https://travis-ci.org/kentor/react-click-outside.svg)](https://travis-ci.org/kentor/react-click-outside) [![npm](https://img.shields.io/npm/v/react-click-outside.svg)](https://www.npmjs.com/package/react-click-outside)
+# React Click Outside
+
+[![Build Status](https://travis-ci.org/kentor/react-click-outside.svg)](https://travis-ci.org/kentor/react-click-outside) [![npm](https://img.shields.io/npm/v/react-click-outside.svg)](https://www.npmjs.com/package/react-click-outside)
 
 Enhance a React component with a Higher Order Component that provides click
 outside detection.
