@@ -1,10 +1,11 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+const hoistNonReactStatic = require('hoist-non-react-statics');
 
 module.exports = function enhanceWithClickOutside(WrappedComponent) {
   const componentName = WrappedComponent.displayName || WrappedComponent.name;
 
-  return React.createClass({
+  const EnhancedComponent = React.createClass({
     displayName: `Wrapped${componentName}`,
 
     componentDidMount() {
@@ -28,4 +29,5 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
       return <WrappedComponent {...this.props} ref="wrappedComponent" />;
     },
   });
+  return hoistNonReactStatic(EnhancedComponent, WrappedComponent);
 };
