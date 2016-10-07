@@ -4,8 +4,7 @@
   "description": "A component wrapper that provides click outside detection.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel -d dist index.js",
-    "prepublish": "npm test && npm run build",
+    "build": "npm test && babel -d dist index.js",
     "lint": "eslint .",
     "test": "npm run lint && mocha --compilers js:babel-register --require test-setup"
   },
