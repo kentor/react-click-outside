@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npm test && babel -d dist index.js",
     "lint": "eslint .",
-    "test": "npm run lint && mocha --compilers js:babel-register --require test-setup"
+    "test": "mocha --compilers js:babel-register --require test-setup",
+    "test:ci": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
