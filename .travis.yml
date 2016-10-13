@@ -1,5 +1,16 @@
 language: node_js
 node_js:
- - "4"
- - "5"
- - "6"
+  - "4"
+  - "5"
+  - "6"
+cache:
+  directories:
+    - $HOME/.npm
+    - $HOME/.yarn-cache
+    - node_modules
+before_install:
+  - npm install -g yarn
+install:
+  - yarn
+script:
+  - npm run test:ci
