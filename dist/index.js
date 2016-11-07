@@ -21,8 +21,10 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     },
     handleClickOutside: function handleClickOutside(e) {
       var domNode = ReactDOM.findDOMNode(this);
-      if ((!domNode || !domNode.contains(e.target)) && typeof this.refs.wrappedComponent.handleClickOutside === 'function') {
-        this.refs.wrappedComponent.handleClickOutside(e);
+      var handleClickOutside = this.refs.wrappedComponent.props.handleClickOutside || this.refs.wrappedComponent.handleClickOutside;
+
+      if ((!domNode || !domNode.contains(e.target)) && typeof handleClickOutside === 'function') {
+        handleClickOutside(e);
       }
     },
     render: function render() {
