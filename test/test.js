@@ -39,7 +39,7 @@ const WrapComponent = (Component) => React.createClass({
         <Component ref="inside" {...this.props} />
         <div ref="outside" />
       </div>
-    )
+    );
   },
 });
 
@@ -58,10 +58,13 @@ describe('enhanceWithClickOutside', () => {
     const EnhancedComponent = enhanceWithClickOutside(TestComponent);
     const Root = WrapComponent(EnhancedComponent);
 
-    const rootComponent = ReactDOM.render(<Root 
-      clickInsideSpy={clickInsideSpy}
-      clickOutsideSpy={clickOutsideSpy}
-    />, mountNode);
+    const rootComponent = ReactDOM.render(
+      <Root
+        clickInsideSpy={clickInsideSpy}
+        clickOutsideSpy={clickOutsideSpy}
+      />,
+      mountNode
+    );
 
     const enhancedComponent = rootComponent.refs.inside;
     const enhancedNode = ReactDOM.findDOMNode(enhancedComponent);
@@ -102,11 +105,14 @@ describe('enhanceWithClickOutside', () => {
     const EnhancedComponent = enhanceWithClickOutside(TestComponent);
     const Root = WrapComponent(EnhancedComponent);
 
-    const rootComponent = ReactDOM.render(<Root 
-      clickInsideSpy={clickInsideSpy}
-      clickOutsideSpy={clickOutsideSpy}
-      handleClickOutside={clickOutSideViaPropSpy}
-    />, mountNode);
+    const rootComponent = ReactDOM.render(
+      <Root
+        clickInsideSpy={clickInsideSpy}
+        clickOutsideSpy={clickOutsideSpy}
+        handleClickOutside={clickOutSideViaPropSpy}
+      />,
+      mountNode
+    );
 
     const enhancedComponent = rootComponent.refs.inside;
     const enhancedNode = ReactDOM.findDOMNode(enhancedComponent);

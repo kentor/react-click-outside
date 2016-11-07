@@ -19,8 +19,9 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
 
     handleClickOutside(e) {
       const domNode = ReactDOM.findDOMNode(this);
-      const handleClickOutside = this.refs.wrappedComponent.props.handleClickOutside ||
-        this.refs.wrappedComponent.handleClickOutside;
+      const component = this.refs.wrappedComponent;
+      const handleClickOutside = component.props.handleClickOutside ||
+        component.handleClickOutside;
 
       if ((!domNode || !domNode.contains(e.target)) &&
         typeof handleClickOutside === 'function') {
