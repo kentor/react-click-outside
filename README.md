@@ -10,6 +10,7 @@ outside detection.
 0.13 support.
 
 ## Usage
+
 Installation:
 
 ```
@@ -63,6 +64,14 @@ case.
 
 - IE9+ due to the usage of the event capturing phase.
 
+## Not working on iOS?
+
+If the `handleClickOutside` handler is not firing on iOS, try adding the
+`cursor: pointer` css rule to the `<body>` element (I leave it up to you for
+iOS detection). See [#4][i] for a discussion.
+
 ## License
 
 [MIT](LICENSE.txt)
+
+[i]: https://github.com/kentor/react-click-outside/issues/4
