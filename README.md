@@ -67,8 +67,20 @@ case.
 ## Not working on iOS?
 
 If the `handleClickOutside` handler is not firing on iOS, try adding the
-`cursor: pointer` css rule to the `<body>` element (I leave it up to you for
-iOS detection). See [#4][i] for a discussion.
+`cursor: pointer` css style to the `<body>` element. There are many ways to
+achieve this, here is just one example:
+
+```js
+if ('ontouchstart' in document.documentElement) {
+  document.body.style.cursor = 'pointer';
+}
+```
+
+If your app already has a way for mobile detection (e.g. Modernizr), you may
+want to use that instead.
+
+
+See issue [#4][i] for a discussion.
 
 ## License
 
