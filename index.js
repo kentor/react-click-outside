@@ -10,11 +10,11 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
 
     componentDidMount() {
       this.__wrappedComponent = this.refs.wrappedComponent;
-      document.addEventListener('click', this.handleClickOutside, true);
+      document.addEventListener('click touchstart', this.handleClickOutside, true);
     },
 
     componentWillUnmount() {
-      document.removeEventListener('click', this.handleClickOutside, true);
+      document.removeEventListener('click touchstart', this.handleClickOutside, true);
     },
 
     handleClickOutside(e) {
