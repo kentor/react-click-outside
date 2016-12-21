@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npm test && babel -d dist index.js",
-    "demo": "wzrd demo/app.js",
+    "demo": "budo demo/app.js",
     "lint": "eslint .",
     "test": "mocha --compilers js:babel-register --require test-setup",
     "test:ci": "npm run lint && npm run test"
@@ -33,6 +33,7 @@
     "babel-register": "6.16.3",
     "babelify": "7.3.0",
     "browserify": "13.1.1",
+    "budo": "9.3.0",
     "eslint": "3.7.1",
     "eslint-config-kentor": "3.7.1",
     "eslint-plugin-react": "6.3.0",
@@ -40,8 +41,7 @@
     "jsdom": "9.6.0",
     "mocha": "3.1.0",
     "react": "15.3.2",
-    "react-dom": "15.3.2",
-    "wzrd": "1.4.0"
+    "react-dom": "15.3.2"
   },
   "dependencies": {
     "hoist-non-react-statics": "^1.2.0"
