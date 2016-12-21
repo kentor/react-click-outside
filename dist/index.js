@@ -13,7 +13,6 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     displayName: 'Wrapped' + componentName,
 
     componentDidMount: function componentDidMount() {
-      this.__wrappedComponent = this.refs.wrappedComponent;
       document.addEventListener('click', this.handleClickOutside, true);
     },
     componentWillUnmount: function componentWillUnmount() {
@@ -21,12 +20,19 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     },
     handleClickOutside: function handleClickOutside(e) {
       var domNode = ReactDOM.findDOMNode(this);
-      if ((!domNode || !domNode.contains(e.target)) && typeof this.refs.wrappedComponent.handleClickOutside === 'function') {
-        this.refs.wrappedComponent.handleClickOutside(e);
+      var wrappedComponent = this.__wrappedComponent;
+      if ((!domNode || !domNode.contains(e.target)) && typeof wrappedComponent.handleClickOutside === 'function') {
+        wrappedComponent.handleClickOutside(e);
       }
     },
     render: function render() {
-      return React.createElement(WrappedComponent, _extends({}, this.props, { ref: 'wrappedComponent' }));
+      var _this = this;
+
+      return React.createElement(WrappedComponent, _extends({}, this.props, {
+        ref: function ref(c) {
+          _this.__wrappedComponent = c;
+        }
+      }));
     }
   });
 
