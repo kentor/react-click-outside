@@ -40,8 +40,8 @@
     "expect": "1.20.2",
     "jsdom": "9.9.1",
     "mocha": "3.2.0",
-    "react": "15.4.1",
-    "react-dom": "15.4.1"
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   },
   "dependencies": {
     "hoist-non-react-statics": "^1.2.0"
