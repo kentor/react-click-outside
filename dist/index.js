@@ -2,6 +2,7 @@
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var createClass = require('create-react-class');
 var hoistNonReactStatic = require('hoist-non-react-statics');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -9,7 +10,7 @@ var ReactDOM = require('react-dom');
 module.exports = function enhanceWithClickOutside(WrappedComponent) {
   var componentName = WrappedComponent.displayName || WrappedComponent.name;
 
-  var EnhancedComponent = React.createClass({
+  var EnhancedComponent = createClass({
     displayName: 'Wrapped' + componentName,
 
     componentDidMount: function componentDidMount() {

@@ -40,10 +40,11 @@
     "expect": "1.20.2",
     "jsdom": "9.9.1",
     "mocha": "3.2.0",
-    "react": "15.4.1",
-    "react-dom": "15.4.1"
+    "react": "^15.5.3",
+    "react-dom": "^15.5.3"
   },
   "dependencies": {
+    "create-react-class": "^15.5.2",
     "hoist-non-react-statics": "^1.2.0"
   },
   "browserify": {
