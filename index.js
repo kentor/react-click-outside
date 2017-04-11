@@ -1,3 +1,4 @@
+const createClass = require('create-react-class');
 const hoistNonReactStatic = require('hoist-non-react-statics');
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -5,7 +6,7 @@ const ReactDOM = require('react-dom');
 module.exports = function enhanceWithClickOutside(WrappedComponent) {
   const componentName = WrappedComponent.displayName || WrappedComponent.name;
 
-  const EnhancedComponent = React.createClass({
+  const EnhancedComponent = createClass({
     displayName: `Wrapped${componentName}`,
 
     componentDidMount() {

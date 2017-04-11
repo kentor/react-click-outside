@@ -1,3 +1,4 @@
+const createClass = require('create-react-class');
 const enhanceWithClickOutside = require('../index');
 const expect = require('expect');
 const React = require('react');
@@ -22,7 +23,7 @@ describe('enhanceWithClickOutside', () => {
     const clickInsideSpy = expect.createSpy();
     const clickOutsideSpy = expect.createSpy();
 
-    const ToBeEnhancedComponent = React.createClass({
+    const ToBeEnhancedComponent = createClass({
       handleClick() {
         clickInsideSpy();
       },
@@ -46,7 +47,7 @@ describe('enhanceWithClickOutside', () => {
 
     const EnhancedComponent = enhanceWithClickOutside(ToBeEnhancedComponent);
 
-    const Root = React.createClass({
+    const Root = createClass({
       render() {
         return (
           <div>
@@ -92,7 +93,7 @@ describe('enhanceWithClickOutside', () => {
 
   it('calls handleClickOutside even if wrapped component renders null', () => {
     const clickOutsideSpy = expect.createSpy();
-    const WrappedComponent = React.createClass({
+    const WrappedComponent = createClass({
       handleClickOutside() {
         clickOutsideSpy();
       },
@@ -114,7 +115,7 @@ describe('enhanceWithClickOutside', () => {
   });
 
   it('does nothing if handleClickOutside is not implemented', () => {
-    const WrappedComponent = React.createClass({
+    const WrappedComponent = createClass({
       render() {
         return <div />;
       },
@@ -126,7 +127,7 @@ describe('enhanceWithClickOutside', () => {
 
   describe('displayName', () => {
     it('gets set for React.createClass', () => {
-      const ReactClass = React.createClass({
+      const ReactClass = createClass({
         displayName: 'ReactClass',
         handleClickOutside() {},
         render() {},
