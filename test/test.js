@@ -1,3 +1,4 @@
+const createReactClass = require('create-react-class');
 const enhanceWithClickOutside = require('../index');
 const expect = require('expect');
 const React = require('react');
@@ -22,18 +23,18 @@ describe('enhanceWithClickOutside', () => {
     const clickInsideSpy = expect.createSpy();
     const clickOutsideSpy = expect.createSpy();
 
-    const ToBeEnhancedComponent = React.createClass({
+    class ToBeEnhancedComponent extends React.Component {
       handleClick() {
         clickInsideSpy();
-      },
+      }
 
       handleClickOutside(e) {
         this.testBoundToComponent(e);
-      },
+      }
 
       testBoundToComponent(e) {
         clickOutsideSpy(e);
-      },
+      }
 
       render() {
         return (
@@ -41,12 +42,12 @@ describe('enhanceWithClickOutside', () => {
             <div ref="nested" />
           </div>
         );
-      },
-    });
+      }
+    }
 
     const EnhancedComponent = enhanceWithClickOutside(ToBeEnhancedComponent);
 
-    const Root = React.createClass({
+    class Root extends React.Component {
       render() {
         return (
           <div>
@@ -54,8 +55,8 @@ describe('enhanceWithClickOutside', () => {
             <div ref="outsideComponent" />
           </div>
         );
-      },
-    });
+      }
+    }
 
     const rootComponent = ReactDOM.render(<Root />, mountNode);
 
@@ -92,14 +93,15 @@ describe('enhanceWithClickOutside', () => {
 
   it('calls handleClickOutside even if wrapped component renders null', () => {
     const clickOutsideSpy = expect.createSpy();
-    const WrappedComponent = React.createClass({
+    class WrappedComponent extends React.Component {
       handleClickOutside() {
         clickOutsideSpy();
-      },
+      }
+
       render() {
         return null;
-      },
-    });
+      }
+    }
     const EnhancedComponent = enhanceWithClickOutside(WrappedComponent);
     const enhancedComponent = ReactDOM.render(<EnhancedComponent />, mountNode);
 
@@ -114,11 +116,11 @@ describe('enhanceWithClickOutside', () => {
   });
 
   it('does nothing if handleClickOutside is not implemented', () => {
-    const WrappedComponent = React.createClass({
+    class WrappedComponent extends React.Component {
       render() {
         return <div />;
-      },
-    });
+      }
+    }
     const EnhancedComponent = enhanceWithClickOutside(WrappedComponent);
     const enhancedComponent = ReactDOM.render(<EnhancedComponent />, mountNode);
     enhancedComponent.handleClickOutside({});
@@ -126,7 +128,7 @@ describe('enhanceWithClickOutside', () => {
 
   describe('displayName', () => {
     it('gets set for React.createClass', () => {
-      const ReactClass = React.createClass({
+      const ReactClass = createReactClass({
         displayName: 'ReactClass',
         handleClickOutside() {},
         render() {},

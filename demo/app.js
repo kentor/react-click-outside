@@ -9,17 +9,21 @@ const style = {
   width: 100,
 };
 
-const Target = enhanceWithClickOutside(React.createClass({
-  handleClickOutside() {
-    const hue = Math.floor(Math.random() * 360);
-    document.body.style.backgroundColor = `hsl(${hue}, 100%, 87.5%)`;
-  },
+const Target = (() => {
+  class Target extends React.Component {
+    handleClickOutside() {
+      const hue = Math.floor(Math.random() * 360);
+      document.body.style.backgroundColor = `hsl(${hue}, 100%, 87.5%)`;
+    }
 
-  render() {
-    const isMobile = 'ontouchstart' in document.body;
-    return <div style={style}>{`mobile: ${isMobile}`}</div>;
-  },
-}));
+    render() {
+      const isMobile = 'ontouchstart' in document.body;
+      return <div style={style}>{`mobile: ${isMobile}`}</div>;
+    }
+  }
+
+  return enhanceWithClickOutside(Target);
+})();
 
 const Root = () => (
   <div>
