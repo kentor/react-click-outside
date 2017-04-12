@@ -83,12 +83,6 @@ describe('enhanceWithClickOutside', () => {
 
     const event = simulateClick(outsideNode);
     expect(clickOutsideSpy).toHaveBeenCalledWith(event);
-
-    expect.spyOn(document, 'removeEventListener').andCallThrough();
-    ReactDOM.unmountComponentAtNode(mountNode);
-    expect(document.removeEventListener).toHaveBeenCalledWith(
-      'click', enhancedComponent.handleClickOutside, true
-    );
   });
 
   it('calls handleClickOutside even if wrapped component renders null', () => {
@@ -113,6 +107,55 @@ describe('enhanceWithClickOutside', () => {
     // If the component returns null, technically every click is an outside
     // click, so we should call the inner handleClickOutside always
     expect(clickOutsideSpy.calls.length).toBe(1);
+  });
+
+  it('does not call handleClickOutside when unmounted', (done) => {
+    const clickOutsideSpy = expect.createSpy();
+
+    class ToBeEnhancedComponent extends React.Component {
+      handleClickOutside() {
+        clickOutsideSpy();
+      }
+
+      render() {
+        return <div />;
+      }
+    }
+
+    const EnhancedComponent = enhanceWithClickOutside(ToBeEnhancedComponent);
+
+    class Root extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          showEnhancedComponent: true,
+        };
+      }
+
+      render() {
+        return (
+          <div>
+            {this.state.showEnhancedComponent &&
+              <EnhancedComponent ref="enhancedComponent"/>
+            }
+            <div ref="outsideComponent" />
+          </div>
+        );
+      }
+    }
+
+    const rootComponent = ReactDOM.render(<Root />, mountNode);
+    const outsideNode = rootComponent.refs.outsideComponent;
+
+    expect(clickOutsideSpy.calls.length).toBe(0);
+    simulateClick(outsideNode);
+    expect(clickOutsideSpy.calls.length).toBe(1);
+
+    rootComponent.setState({ showEnhancedComponent: false }, () => {
+      simulateClick(outsideNode);
+      expect(clickOutsideSpy.calls.length).toBe(1);
+      done();
+    });
   });
 
   it('does nothing if handleClickOutside is not implemented', () => {
