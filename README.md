@@ -9,6 +9,9 @@ outside detection.
 `react-dom` is installed in your project. Continue using version 1.x for React
 0.13 support.
 
+**Note:** Use version >= 2.3.0 to get rid of `React.createClass`
+warnings in React 15.5.
+
 ## Usage
 
 Installation:
