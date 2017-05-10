@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npm test && babel -d dist index.js",
-    "demo": "budo demo/app.js",
+    "demo": "budo demo/app.js -- -t babelify",
     "lint": "eslint .",
     "test": "mocha --compilers js:babel-register --require test-setup",
     "test:ci": "npm run lint && npm run test"
@@ -46,10 +46,5 @@
   },
   "dependencies": {
     "hoist-non-react-statics": "^1.2.0"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
   }
 }
