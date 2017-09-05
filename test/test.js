@@ -189,4 +189,14 @@ describe('enhanceWithClickOutside', () => {
       expect(Wrapped.displayName).toBe('WrappedES6Class');
     });
   });
+
+  describe('WrappedComponent property', () => {
+    it('allows access to the wrapped component', () => {
+      class ToBeEnhancedComponent extends React.Component {
+        render() {}
+      }
+      const Enhanced = enhanceWithClickOutside(ToBeEnhancedComponent);
+      expect(Enhanced.WrappedComponent).toBe(ToBeEnhancedComponent);
+    });
+  });
 });
