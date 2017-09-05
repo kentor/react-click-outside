@@ -56,6 +56,9 @@ phase. Using the event capturing phase prevents elements with a click handler
 that calls `stopPropagation` from cancelling the click event that would
 eventually trigger the component's `handleClickOutside` function.
 
+The wrapped component is available by accessing the `WrappedComponent` property
+on the component returned by `enhanceWithClickOutside`.
+
 ## Why not a mixin?
 
 There are some mixins that provide click outside detection functionality, but

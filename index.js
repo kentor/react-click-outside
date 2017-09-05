@@ -44,5 +44,7 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
 
   EnhancedComponent.displayName = `Wrapped${componentName}`;
 
+  EnhancedComponent.WrappedComponent = WrappedComponent;
+
   return hoistNonReactStatic(EnhancedComponent, WrappedComponent);
 };
