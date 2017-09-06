@@ -15,6 +15,10 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 module.exports = function enhanceWithClickOutside(WrappedComponent) {
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      _ref$event = _ref.event,
+      event = _ref$event === undefined ? 'click' : _ref$event;
+
   var componentName = WrappedComponent.displayName || WrappedComponent.name;
 
   var EnhancedComponent = function (_React$Component) {
@@ -32,12 +36,12 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     _createClass(EnhancedComponent, [{
       key: 'componentDidMount',
       value: function componentDidMount() {
-        document.addEventListener('click', this.handleClickOutside, true);
+        document.addEventListener(event, this.handleClickOutside, true);
       }
     }, {
       key: 'componentWillUnmount',
       value: function componentWillUnmount() {
-        document.removeEventListener('click', this.handleClickOutside, true);
+        document.removeEventListener(event, this.handleClickOutside, true);
       }
     }, {
       key: 'handleClickOutside',

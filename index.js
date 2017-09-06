@@ -2,7 +2,8 @@ const hoistNonReactStatic = require('hoist-non-react-statics');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-module.exports = function enhanceWithClickOutside(WrappedComponent) {
+module.exports = function enhanceWithClickOutside(WrappedComponent,
+  { event = 'click' } = {}) {
   const componentName = WrappedComponent.displayName || WrappedComponent.name;
 
   class EnhancedComponent extends React.Component {
@@ -12,11 +13,11 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     }
 
     componentDidMount() {
-      document.addEventListener('click', this.handleClickOutside, true);
+      document.addEventListener(event, this.handleClickOutside, true);
     }
 
     componentWillUnmount() {
-      document.removeEventListener('click', this.handleClickOutside, true);
+      document.removeEventListener(event, this.handleClickOutside, true);
     }
 
     handleClickOutside(e) {

@@ -1,5 +1,5 @@
 {
-  "name": "react-click-outside",
+  "name": "@captemulation/react-click-outside",
   "version": "2.3.1",
   "description": "A component wrapper that provides click outside detection.",
   "main": "dist/index.js",
