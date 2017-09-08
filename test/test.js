@@ -177,7 +177,7 @@ describe('enhanceWithClickOutside', () => {
         render() {},
       });
       const Wrapped = enhanceWithClickOutside(ReactClass);
-      expect(Wrapped.displayName).toBe('WrappedReactClass');
+      expect(Wrapped.displayName).toBe('clickOutside(ReactClass)');
     });
 
     it('gets set for ES6 classes', () => {
@@ -186,7 +186,7 @@ describe('enhanceWithClickOutside', () => {
         render() {}
       }
       const Wrapped = enhanceWithClickOutside(ES6Class);
-      expect(Wrapped.displayName).toBe('WrappedES6Class');
+      expect(Wrapped.displayName).toBe('clickOutside(ES6Class)');
     });
   });
 });

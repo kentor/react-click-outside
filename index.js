@@ -42,7 +42,7 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     }
   }
 
-  EnhancedComponent.displayName = `Wrapped${componentName}`;
+  EnhancedComponent.displayName = `clickOutside(${componentName})`;
 
   return hoistNonReactStatic(EnhancedComponent, WrappedComponent);
 };

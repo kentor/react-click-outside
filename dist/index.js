@@ -64,7 +64,7 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     return EnhancedComponent;
   }(React.Component);
 
-  EnhancedComponent.displayName = 'Wrapped' + componentName;
+  EnhancedComponent.displayName = 'clickOutside(' + componentName + ')';
 
   return hoistNonReactStatic(EnhancedComponent, WrappedComponent);
 };
