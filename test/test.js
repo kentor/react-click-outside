@@ -47,27 +47,30 @@ describe('enhanceWithClickOutside', () => {
 
     const EnhancedComponent = enhanceWithClickOutside(ToBeEnhancedComponent);
 
+    let wrappedInstance;
+
     class Root extends React.Component {
       render() {
         return (
           <div>
-            <EnhancedComponent ref="enhancedComponent"/>
-            <div ref="outsideComponent" />
+            <EnhancedComponent
+              ref="enhancedInstance"
+              wrappedRef={c => { wrappedInstance = c; }}
+            />
+            <div ref="outsideNode" />
           </div>
         );
       }
     }
 
-    const rootComponent = ReactDOM.render(<Root />, mountNode);
+    const rootInstance = ReactDOM.render(<Root />, mountNode);
 
-    const enhancedComponent = rootComponent.refs.enhancedComponent;
-    const enhancedNode = ReactDOM.findDOMNode(enhancedComponent);
+    const enhancedInstance = rootInstance.refs.enhancedInstance;
+    const enhancedNode = ReactDOM.findDOMNode(enhancedInstance);
 
-    const wrappedComponent = enhancedComponent.__wrappedComponent;
+    const nestedNode = ReactDOM.findDOMNode(wrappedInstance.refs.nested);
 
-    const nestedNode = ReactDOM.findDOMNode(wrappedComponent.refs.nested);
-
-    const outsideNode = rootComponent.refs.outsideComponent;
+    const outsideNode = rootInstance.refs.outsideNode;
 
     simulateClick(enhancedNode);
     expect(clickInsideSpy.calls.length).toBe(1);
@@ -97,11 +100,11 @@ describe('enhanceWithClickOutside', () => {
       }
     }
     const EnhancedComponent = enhanceWithClickOutside(WrappedComponent);
-    const enhancedComponent = ReactDOM.render(<EnhancedComponent />, mountNode);
+    const enhancedInstance = ReactDOM.render(<EnhancedComponent />, mountNode);
 
     // We shouldn't TypeError when we try to call handleClickOutside
     expect(() => {
-      enhancedComponent.handleClickOutside();
+      enhancedInstance.handleClickOutside();
     }).toNotThrow(TypeError);
 
     // If the component returns null, technically every click is an outside
@@ -136,22 +139,22 @@ describe('enhanceWithClickOutside', () => {
         return (
           <div>
             {this.state.showEnhancedComponent &&
-              <EnhancedComponent ref="enhancedComponent"/>
+              <EnhancedComponent ref="enhancedInstance" />
             }
-            <div ref="outsideComponent" />
+            <div ref="outsideNode" />
           </div>
         );
       }
     }
 
-    const rootComponent = ReactDOM.render(<Root />, mountNode);
-    const outsideNode = rootComponent.refs.outsideComponent;
+    const rootInstance = ReactDOM.render(<Root />, mountNode);
+    const outsideNode = rootInstance.refs.outsideNode;
 
     expect(clickOutsideSpy.calls.length).toBe(0);
     simulateClick(outsideNode);
     expect(clickOutsideSpy.calls.length).toBe(1);
 
-    rootComponent.setState({ showEnhancedComponent: false }, () => {
+    rootInstance.setState({ showEnhancedComponent: false }, () => {
       simulateClick(outsideNode);
       expect(clickOutsideSpy.calls.length).toBe(1);
       done();
@@ -165,8 +168,8 @@ describe('enhanceWithClickOutside', () => {
       }
     }
     const EnhancedComponent = enhanceWithClickOutside(WrappedComponent);
-    const enhancedComponent = ReactDOM.render(<EnhancedComponent />, mountNode);
-    enhancedComponent.handleClickOutside({});
+    const enhancedInstance = ReactDOM.render(<EnhancedComponent />, mountNode);
+    enhancedInstance.handleClickOutside({});
   });
 
   it('takes wrappedRef prop', () => {
