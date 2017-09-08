@@ -23,10 +23,11 @@ npm install react-click-outside
 Some component that you wish to enhance with click outside detection:
 
 ```js
+const createReactClass = require('create-react-class');
 const enhanceWithClickOutside = require('react-click-outside');
 const React = require('react');
 
-const Dropdown = React.createClass({
+const Dropdown = createReactClass({
   getInitialState() {
     return {
       isOpened: false,
@@ -34,7 +35,11 @@ const Dropdown = React.createClass({
   },
 
   handleClickOutside() {
-    this.setState({ isOpened: false });
+    this.toggle();
+  },
+
+  toggle() {
+    this.setState({ isOpened: !this.state.isOpened });
   },
 
   render() {
@@ -47,6 +52,21 @@ module.exports = enhanceWithClickOutside(Dropdown);
 
 **Note:** There will be no error thrown if `handleClickOutside` is not
 implemented.
+
+### `wrappedRef` prop
+
+Use the `wrappedRef` prop to get access to the wrapped component instance. For
+example:
+
+```js
+// Inside a component's render method
+<Dropdown
+  wrappedRef={instance => { this.toggle = instance.toggle; }}
+/>
+
+// Now you can call toggle externally
+this.toggle();
+```
 
 ## Details
 

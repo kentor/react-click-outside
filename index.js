@@ -30,12 +30,15 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     }
 
     render() {
+      const { wrappedRef, ...rest } = this.props;
+
       return (
         <WrappedComponent
-          {...this.props}
+          {...rest}
           ref={c => {
             this.__wrappedComponent = c;
             this.__domNode = ReactDOM.findDOMNode(c);
+            wrappedRef && wrappedRef(c);
           }}
         />
       );

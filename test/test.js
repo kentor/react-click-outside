@@ -169,6 +169,24 @@ describe('enhanceWithClickOutside', () => {
     enhancedComponent.handleClickOutside({});
   });
 
+  it('takes wrappedRef prop', () => {
+    class WrappedComponent extends React.Component {
+      wrappedInstanceMethod() {
+      }
+
+      render() {
+        return null;
+      }
+    }
+    const EnhancedComponent = enhanceWithClickOutside(WrappedComponent);
+    let instance;
+    ReactDOM.render(
+      <EnhancedComponent wrappedRef={c => { instance = c; }} />,
+      mountNode
+    );
+    expect(typeof instance.wrappedInstanceMethod).toBe('function');
+  });
+
   describe('displayName', () => {
     it('gets set for React.createClass', () => {
       const ReactClass = createReactClass({
