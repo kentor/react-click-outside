@@ -46,6 +46,6 @@
     "react-dom": "15.5.4"
   },
   "dependencies": {
-    "hoist-non-react-statics": "^1.2.0"
+    "hoist-non-react-statics": "^2.1.1"
   }
 }
