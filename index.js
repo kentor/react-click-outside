@@ -20,7 +20,7 @@ module.exports = function factory(unknown) {
     events = [],
   } = unknown || {};
 
-  const allEvents = [ event, ...events ];
+  const allEvents = [ event, ...events.filter(e => e !== event) ];
 
 
   function decorator(WrappedComponent) {
