@@ -1,1 +1,8 @@
-dist
+## clean slate
+*
+
+## transpiled commonjs-compatible target
+!dist/**/*
+
+!README.md
+!LICENSE.txt
