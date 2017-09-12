@@ -1,51 +1,76 @@
-const hoistNonReactStatic = require('hoist-non-react-statics');
-const React = require('react');
-const ReactDOM = require('react-dom');
+import hoistNonReactStatic from 'hoist-non-react-statics';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
-module.exports = function enhanceWithClickOutside(WrappedComponent) {
-  const componentName = WrappedComponent.displayName || WrappedComponent.name;
+function isPrototypeOf(actual, expected) {
+  let expectedIsAPrototypeOfActual = actual === expected;
+  // Walk prototype chain
+  let ip = actual;
+  while(ip && ip.prototype && !expectedIsAPrototypeOfActual) {
+    expectedIsAPrototypeOfActual = ip === expected;
+    ip = ip.prototype;;
+  }
+  return expectedIsAPrototypeOfActual;
+}
 
-  class EnhancedComponent extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleClickOutside = this.handleClickOutside.bind(this);
-    }
+module.exports = function factory(unknown) {
 
-    componentDidMount() {
-      document.addEventListener('click', this.handleClickOutside, true);
-    }
+  const {
+    event = 'click',
+  } = unknown || {};
 
-    componentWillUnmount() {
-      document.removeEventListener('click', this.handleClickOutside, true);
-    }
+  function decorator(WrappedComponent) {
+    const componentName = WrappedComponent.displayName || WrappedComponent.name;
 
-    handleClickOutside(e) {
-      const domNode = this.__domNode;
-      if (
-        (!domNode || !domNode.contains(e.target)) &&
-        typeof this.__wrappedInstance.handleClickOutside === 'function'
-      ) {
-        this.__wrappedInstance.handleClickOutside(e);
+    class EnhancedComponent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+      }
+
+      componentDidMount() {
+        document.addEventListener(event, this.handleClickOutside, true);
+      }
+
+      componentWillUnmount() {
+        document.removeEventListener(event, this.handleClickOutside, true);
+      }
+
+      handleClickOutside(e) {
+        const domNode = this.__domNode;
+        if (
+          (!domNode || !domNode.contains(e.target)) &&
+          typeof this.__wrappedInstance.handleClickOutside === 'function'
+        ) {
+          this.__wrappedInstance.handleClickOutside(e);
+        }
+      }
+
+      render() {
+        const { wrappedRef, ...rest } = this.props;
+
+        return (
+          <WrappedComponent
+            {...rest}
+            ref={c => {
+              this.__wrappedInstance = c;
+              this.__domNode = ReactDOM.findDOMNode(c);
+              wrappedRef && wrappedRef(c);
+            }}
+          />
+        );
       }
     }
 
-    render() {
-      const { wrappedRef, ...rest } = this.props;
+    EnhancedComponent.displayName = `clickOutside(${componentName})`;
 
-      return (
-        <WrappedComponent
-          {...rest}
-          ref={c => {
-            this.__wrappedInstance = c;
-            this.__domNode = ReactDOM.findDOMNode(c);
-            wrappedRef && wrappedRef(c);
-          }}
-        />
-      );
-    }
+    return EnhancedComponent;
   }
 
-  EnhancedComponent.displayName = `clickOutside(${componentName})`;
-
-  return hoistNonReactStatic(EnhancedComponent, WrappedComponent);
-};
+  if (isPrototypeOf(unknown, Component) || typeof unknown === 'function') {
+    // Is a react class or a function which is potentially a react render function
+    const Component = unknown;
+    return decorator(Component);
+  }
+  return decorator;
+}

@@ -11,6 +11,13 @@ function simulateClick(node) {
   return event;
 }
 
+function simulateMouseDown(node) {
+  const event = document.createEvent('Event');
+  event.initEvent('mousedown', true, true);
+  node.dispatchEvent(event);
+  return event;
+}
+
 const mountNode = document.createElement('div');
 document.body.appendChild(mountNode);
 
@@ -86,6 +93,68 @@ describe('enhanceWithClickOutside', () => {
 
     const event = simulateClick(outsideNode);
     expect(clickOutsideSpy).toHaveBeenCalledWith(event);
+  });
+
+  it('calls handleClickOutside when mousedown outside of component', () => {
+    const mouseDownInsideSpy = expect.createSpy();
+    const mouseDownOutsideSpy = expect.createSpy();
+
+    class ToBeEnhancedComponent extends React.Component {
+      handleMouseDown() {
+        mouseDownInsideSpy();
+      }
+
+      handleClickOutside(e) {
+        this.testBoundToComponent(e);
+      }
+
+      testBoundToComponent(e) {
+        mouseDownOutsideSpy(e);
+      }
+
+      render() {
+        return (
+          <div onMouseDown={this.handleMouseDown}>
+            <div ref="nested" />
+          </div>
+        );
+      }
+    }
+
+    const EnhancedComponent = enhanceWithClickOutside(ToBeEnhancedComponent);
+
+    let wrappedInstance;
+
+    class Root extends React.Component {
+      render() {
+        return (
+          <div>
+            <EnhancedComponent
+              ref="enhancedInstance"
+              wrappedRef={c => { wrappedInstance = c; }}
+            />
+            <div ref="outsideNode" />
+          </div>
+        );
+      }
+    }
+
+    const rootInstance = ReactDOM.render(<Root />, mountNode);
+
+    const enhancedInstance = rootInstance.refs.enhancedInstance;
+    const enhancedNode = ReactDOM.findDOMNode(enhancedInstance);
+
+    const nestedNode = ReactDOM.findDOMNode(wrappedInstance.refs.nested);
+
+    const outsideNode = rootInstance.refs.outsideNode;
+
+    simulateMouseDown(enhancedNode);
+    expect(mouseDownInsideSpy.calls.length).toBe(1);
+    expect(mouseDownOutsideSpy.calls.length).toBe(0);
+
+    simulateMouseDown(nestedNode);
+    expect(mouseDownInsideSpy.calls.length).toBe(2);
+    expect(mouseDownOutsideSpy.calls.length).toBe(0);
   });
 
   it('calls handleClickOutside even if wrapped component renders null', () => {

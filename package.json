@@ -8,7 +8,8 @@
     "demo": "budo demo/app.js -- -t babelify",
     "lint": "eslint .",
     "test": "mocha --compilers js:babel-register --require test-setup",
-    "test:ci": "npm run lint && npm run test"
+    "test:ci": "npm run lint && npm run test",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",

@@ -53,6 +53,16 @@ module.exports = enhanceWithClickOutside(Dropdown);
 **Note:** There will be no error thrown if `handleClickOutside` is not
 implemented.
 
+### Options
+
+Instead of a React Component or render function an options argument can be passed.
+
+```js
+module.exports = enhanceWithClickOutside({ event: 'momusedown' })(Dropdown);
+```
+
+When passing an options argument, then the decorator will be returned.
+
 ### `wrappedRef` prop
 
 Use the `wrappedRef` prop to get access to the wrapped component instance. For

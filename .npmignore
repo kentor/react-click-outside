@@ -4,5 +4,6 @@
 ## transpiled commonjs-compatible target
 !dist/**/*
 
+## Other files
 !README.md
 !LICENSE.txt
