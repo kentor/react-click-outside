@@ -40,28 +40,31 @@ module.exports = function factory(unknown) {
         const domNode = this.__domNode;
         if (
           (!domNode || !domNode.contains(e.target)) &&
-          typeof this.__wrappedComponent.handleClickOutside === 'function'
+          typeof this.__wrappedInstance.handleClickOutside === 'function'
         ) {
-          this.__wrappedComponent.handleClickOutside(e);
+          this.__wrappedInstance.handleClickOutside(e);
         }
       }
 
       render() {
+        const { wrappedRef, ...rest } = this.props;
+
         return (
           <WrappedComponent
-            {...this.props}
+            {...rest}
             ref={c => {
-              this.__wrappedComponent = c;
+              this.__wrappedInstance = c;
               this.__domNode = ReactDOM.findDOMNode(c);
+              wrappedRef && wrappedRef(c);
             }}
           />
         );
       }
     }
 
-    EnhancedComponent.displayName = `Wrapped${componentName}`;
+    EnhancedComponent.displayName = `clickOutside(${componentName})`;
 
-    return hoistNonReactStatic(EnhancedComponent, WrappedComponent);
+    return EnhancedComponent;
   }
 
   if (isPrototypeOf(unknown, Component) || typeof unknown === 'function') {
