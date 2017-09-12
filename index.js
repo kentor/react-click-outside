@@ -17,11 +17,7 @@ module.exports = function factory(unknown) {
 
   const {
     event = 'click',
-    events = [],
   } = unknown || {};
-
-  const allEvents = [ event, ...events.filter(e => e !== event) ];
-
 
   function decorator(WrappedComponent) {
     const componentName = WrappedComponent.displayName || WrappedComponent.name;
@@ -33,11 +29,11 @@ module.exports = function factory(unknown) {
       }
 
       componentDidMount() {
-        allEvents.forEach(event => document.addEventListener(event, this.handleClickOutside, true));
+        document.addEventListener(event, this.handleClickOutside, true);
       }
 
       componentWillUnmount() {
-        allEvents.forEach(event => document.removeEventListener(event, this.handleClickOutside, true));
+        document.removeEventListener(event, this.handleClickOutside, true);
       }
 
       handleClickOutside(e) {
