@@ -37,4 +37,7 @@ if ('ontouchstart' in document.documentElement) {
   document.documentElement.style.touchAction = 'manipulation';
 }
 
-ReactDOM.render(<Root />, document.body);
+const root = document.createElement('div');
+document.body.appendChild(root);
+
+ReactDOM.render(<Root />, root);
