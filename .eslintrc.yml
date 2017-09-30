@@ -4,5 +4,5 @@ env:
 extends:
   - kentor
   - kentor/browser
-  - kentor/es6
+  - kentor/es
   - kentor/react

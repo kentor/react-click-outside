@@ -1,5 +1,6 @@
 const jsdom = require('jsdom');
 
-global.document = jsdom.jsdom();
 global.navigator = { userAgent: 'node.js' };
-global.window = document.defaultView;
+global.window = new jsdom.JSDOM('<!doctype html>').window;
+
+global.document = global.window.document;
