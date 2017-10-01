@@ -7,7 +7,7 @@
     "build": "npm test && babel -d dist index.js",
     "demo": "budo demo/app.js -- -t babelify",
     "lint": "eslint .",
-    "test": "mocha --compilers js:babel-register --require test-setup",
+    "test": "jest",
     "test:ci": "npm run lint && npm run test"
   },
   "repository": {
@@ -28,22 +28,23 @@
   "homepage": "https://github.com/kentor/react-click-outside",
   "devDependencies": {
     "babel-cli": "6.26.0",
+    "babel-jest": "21.2.0",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.6.0",
     "babel-preset-react": "6.24.1",
-    "babel-register": "6.26.0",
     "babelify": "7.3.0",
     "browserify": "14.4.0",
     "budo": "10.0.4",
     "create-react-class": "15.6.2",
+    "enzyme": "3.0.0",
+    "enzyme-adapter-react-16": "1.0.0",
     "eslint": "4.8.0",
     "eslint-config-kentor": "4.0.3",
     "eslint-plugin-react": "7.4.0",
-    "expect": "1.20.2",
-    "jsdom": "11.2.0",
-    "mocha": "3.5.3",
+    "jest": "21.2.1",
     "react": "16.0.0",
-    "react-dom": "16.0.0"
+    "react-dom": "16.0.0",
+    "react-test-renderer": "16.0.0"
   },
   "dependencies": {
     "hoist-non-react-statics": "^2.1.1"
