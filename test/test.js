@@ -218,7 +218,7 @@ describe('enhanceWithClickOutside', () => {
         wrappedRef={c => {
           instance = c;
         }}
-      />,
+      />
     );
 
     expect(typeof instance.wrappedInstanceMethod).toBe('function');
