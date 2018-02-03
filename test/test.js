@@ -106,6 +106,79 @@ describe('enhanceWithClickOutside', () => {
     expect(clickOutsideSpy).toHaveBeenCalledWith(event);
   });
 
+  it('calls handleClickOutside when an outside iframe is clicked', () => {
+    const clickOutsideSpy = jest.fn();
+
+    const EnhancedComponent = (() => {
+      class WrappedComponent extends React.Component {
+        handleClickOutside() {
+          clickOutsideSpy();
+        }
+
+        render() {
+          return <div />;
+        }
+      }
+
+      return enhanceWithClickOutside(WrappedComponent);
+    })();
+
+    wrapper = mount(
+      <div>
+        <iframe />
+        <EnhancedComponent />
+      </div>
+    );
+    const iframe = wrapper.find('iframe').getDOMNode();
+
+    expect(clickOutsideSpy.mock.calls.length).toBe(0);
+    simulateClick(iframe);
+    expect(clickOutsideSpy.mock.calls.length).toBe(1);
+  });
+
+  it('does not call handleClickOutside when an iframe inside the enhanced component is clicked', () => {
+    const clickOutsideSpy = jest.fn();
+
+    const EnhancedComponent = (() => {
+      class WrappedComponent extends React.Component {
+        handleClickOutside() {
+          clickOutsideSpy();
+        }
+
+        render() {
+          return (
+            <div>
+              <iframe id="iframe" />
+            </div>
+          );
+        }
+      }
+
+      return enhanceWithClickOutside(WrappedComponent);
+    })();
+
+    class Root extends React.Component {
+      render() {
+        return (
+          <div>
+            <EnhancedComponent />
+            <div id="outsideNode" />
+          </div>
+        );
+      }
+    }
+
+    wrapper = mount(<Root />);
+    const iframe = wrapper.find('#iframe').getDOMNode();
+    const outsideNode = wrapper.find('#outsideNode').getDOMNode();
+
+    expect(clickOutsideSpy.mock.calls.length).toBe(0);
+    simulateClick(iframe);
+    expect(clickOutsideSpy.mock.calls.length).toBe(0);
+    simulateClick(outsideNode);
+    expect(clickOutsideSpy.mock.calls.length).toBe(1);
+  });
+
   it('calls handleClickOutside even if wrapped component renders null', () => {
     const clickOutsideSpy = jest.fn();
 

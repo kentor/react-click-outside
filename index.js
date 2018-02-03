@@ -9,14 +9,31 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
     constructor(props) {
       super(props);
       this.handleClickOutside = this.handleClickOutside.bind(this);
+      this.maybeHandleIframeClick = this.maybeHandleIframeClick.bind(this);
     }
 
     componentDidMount() {
       document.addEventListener('click', this.handleClickOutside, true);
+
+      document.defaultView.addEventListener(
+        'blur',
+        this.maybeHandleIframeClick
+      );
     }
 
     componentWillUnmount() {
       document.removeEventListener('click', this.handleClickOutside, true);
+
+      document.defaultView.removeEventListener(
+        'blur',
+        this.maybeHandleIframeClick
+      );
+    }
+
+    maybeHandleIframeClick() {
+      if (document.activeElement.tagName === 'IFRAME') {
+        this.handleClickOutside({ target: document.activeElement });
+      }
     }
 
     handleClickOutside(e) {
