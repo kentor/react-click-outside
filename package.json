@@ -8,7 +8,7 @@
     "demo": "budo demo/app.js -- -t babelify",
     "lint": "eslint .",
     "test": "jest",
-    "test:ci": "npm run lint && npm run test"
+    "test:ci": "flow && npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
   "homepage": "https://github.com/kentor/react-click-outside",
   "devDependencies": {
     "babel-cli": "6.26.0",
+    "babel-eslint": "8.2.1",
     "babel-jest": "21.2.0",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.6.0",
@@ -39,7 +40,8 @@
     "enzyme": "3.0.0",
     "enzyme-adapter-react-16": "1.0.0",
     "eslint": "4.8.0",
-    "eslint-config-kentor": "5.0.0",
+    "eslint-config-kentor": "5.1.0",
+    "flow-bin": "0.65.0",
     "jest": "21.2.1",
     "react": "16.0.0",
     "react-dom": "16.0.0",

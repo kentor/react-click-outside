@@ -2,6 +2,58 @@
 # yarn lockfile v1
 
 
+"@babel/code-frame@7.0.0-beta.36":
+  version "7.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.36.tgz#2349d7ec04b3a06945ae173280ef8579b63728e4"
+  dependencies:
+    chalk "^2.0.0"
+    esutils "^2.0.2"
+    js-tokens "^3.0.0"
+
+"@babel/helper-function-name@7.0.0-beta.36":
+  version "7.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/@babel/helper-function-name/-/helper-function-name-7.0.0-beta.36.tgz#366e3bc35147721b69009f803907c4d53212e88d"
+  dependencies:
+    "@babel/helper-get-function-arity" "7.0.0-beta.36"
+    "@babel/template" "7.0.0-beta.36"
+    "@babel/types" "7.0.0-beta.36"
+
+"@babel/helper-get-function-arity@7.0.0-beta.36":
+  version "7.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/@babel/helper-get-function-arity/-/helper-get-function-arity-7.0.0-beta.36.tgz#f5383bac9a96b274828b10d98900e84ee43e32b8"
+  dependencies:
+    "@babel/types" "7.0.0-beta.36"
+
+"@babel/template@7.0.0-beta.36":
+  version "7.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0-beta.36.tgz#02e903de5d68bd7899bce3c5b5447e59529abb00"
+  dependencies:
+    "@babel/code-frame" "7.0.0-beta.36"
+    "@babel/types" "7.0.0-beta.36"
+    babylon "7.0.0-beta.36"
+    lodash "^4.2.0"
+
+"@babel/traverse@7.0.0-beta.36":
+  version "7.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.0.0-beta.36.tgz#1dc6f8750e89b6b979de5fe44aa993b1a2192261"
+  dependencies:
+    "@babel/code-frame" "7.0.0-beta.36"
+    "@babel/helper-function-name" "7.0.0-beta.36"
+    "@babel/types" "7.0.0-beta.36"
+    babylon "7.0.0-beta.36"
+    debug "^3.0.1"
+    globals "^11.1.0"
+    invariant "^2.2.0"
+    lodash "^4.2.0"
+
+"@babel/types@7.0.0-beta.36":
+  version "7.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.36.tgz#64f2004353de42adb72f9ebb4665fc35b5499d23"
+  dependencies:
+    esutils "^2.0.2"
+    lodash "^4.2.0"
+    to-fast-properties "^2.0.0"
+
 "@types/node@^6.0.46":
   version "6.0.88"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.88.tgz#f618f11a944f6a18d92b5c472028728a3e3d4b66"
@@ -354,6 +406,17 @@ babel-core@^6.0.14, babel-core@^6.24.1:
     private "^0.1.6"
     slash "^1.0.0"
     source-map "^0.5.0"
+
+babel-eslint@8.2.1:
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-8.2.1.tgz#136888f3c109edc65376c23ebf494f36a3e03951"
+  dependencies:
+    "@babel/code-frame" "7.0.0-beta.36"
+    "@babel/traverse" "7.0.0-beta.36"
+    "@babel/types" "7.0.0-beta.36"
+    babylon "7.0.0-beta.36"
+    eslint-scope "~3.7.1"
+    eslint-visitor-keys "^1.0.0"
 
 babel-generator@^6.18.0, babel-generator@^6.26.0:
   version "6.26.0"
@@ -970,6 +1033,10 @@ babelify@7.3.0:
   dependencies:
     babel-core "^6.0.14"
     object-assign "^4.0.0"
+
+babylon@7.0.0-beta.36:
+  version "7.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.36.tgz#3a3683ba6a9a1e02b0aa507c8e63435e39305b9e"
 
 babylon@^6.11.0, babylon@^6.15.0:
   version "6.16.1"
@@ -1998,9 +2065,9 @@ escodegen@^1.6.1:
   optionalDependencies:
     source-map "~0.2.0"
 
-eslint-config-kentor@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-kentor/-/eslint-config-kentor-5.0.0.tgz#e393caf9173ee0ac5a798e23d0ed8d5dd430c6c8"
+eslint-config-kentor@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-kentor/-/eslint-config-kentor-5.1.0.tgz#161012776ee74b82d72b2f9e9c942f654a256624"
   dependencies:
     eslint-plugin-prettier "^2.3.1"
     eslint-plugin-react "^7.1.0"
@@ -2027,12 +2094,16 @@ eslint-plugin-sort-requires@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-sort-requires/-/eslint-plugin-sort-requires-2.1.0.tgz#3efad948dc83798219e809f54067c40e55444861"
 
-eslint-scope@^3.7.1:
+eslint-scope@^3.7.1, eslint-scope@~3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-3.7.1.tgz#3d63c3edfda02e06e01a452ad88caacc7cdcb6e8"
   dependencies:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
+
+eslint-visitor-keys@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
 eslint@4.8.0:
   version "4.8.0"
@@ -2299,6 +2370,10 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
+flow-bin@0.65.0:
+  version "0.65.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.65.0.tgz#64ffeca27211c786e2d68508c65686ba1b8a2169"
+
 for-in@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -2495,6 +2570,10 @@ glob@^7.1.1, glob@^7.1.2:
     minimatch "^3.0.4"
     once "^1.3.0"
     path-is-absolute "^1.0.0"
+
+globals@^11.1.0:
+  version "11.3.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-11.3.0.tgz#e04fdb7b9796d8adac9c8f64c14837b2313378b0"
 
 globals@^9.0.0:
   version "9.17.0"
@@ -5066,6 +5145,10 @@ to-fast-properties@^1.0.1:
 to-fast-properties@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.3.tgz#b83571fa4d8c25b82e231b06e3a3055de4ca1a47"
+
+to-fast-properties@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
 
 tough-cookie@^2.3.2, tough-cookie@~2.3.3:
   version "2.3.3"

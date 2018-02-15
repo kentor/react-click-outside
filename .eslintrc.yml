@@ -5,3 +5,4 @@ extends:
   - kentor
   - kentor/browser
   - kentor/react
+parser: babel-eslint

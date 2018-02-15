@@ -1,11 +1,17 @@
+// @flow
+
 const hoistNonReactStatic = require('hoist-non-react-statics');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-module.exports = function enhanceWithClickOutside(WrappedComponent) {
-  const componentName = WrappedComponent.displayName || WrappedComponent.name;
+function enhanceWithClickOutside(Component: React.ComponentType<*>) {
+  const componentName = Component.displayName || Component.name;
 
-  class EnhancedComponent extends React.Component {
+  class EnhancedComponent extends React.Component<*> {
+    __domNode: *;
+    __wrappedInstance: ?React.Component<*>;
+    handleClickOutside: (e: Event) => void;
+
     constructor(props) {
       super(props);
       this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -34,7 +40,7 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
       const { wrappedRef, ...rest } = this.props;
 
       return (
-        <WrappedComponent
+        <Component
           {...rest}
           ref={c => {
             this.__wrappedInstance = c;
@@ -48,5 +54,7 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
 
   EnhancedComponent.displayName = `clickOutside(${componentName})`;
 
-  return hoistNonReactStatic(EnhancedComponent, WrappedComponent);
-};
+  return hoistNonReactStatic(EnhancedComponent, Component);
+}
+
+module.exports = enhanceWithClickOutside;
