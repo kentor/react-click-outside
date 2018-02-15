@@ -23,6 +23,7 @@ module.exports = function enhanceWithClickOutside(WrappedComponent) {
       const domNode = this.__domNode;
       if (
         (!domNode || !domNode.contains(e.target)) &&
+        this.__wrappedInstance &&
         typeof this.__wrappedInstance.handleClickOutside === 'function'
       ) {
         this.__wrappedInstance.handleClickOutside(e);
