@@ -25,9 +25,39 @@ const Target = (() => {
   return enhanceWithClickOutside(Target);
 })();
 
+const WrappedTarget = (() => {
+  class WrappedTarget extends React.Component {
+    render() {
+      return <div style={style}>{this.props.children}</div>;
+    }
+  }
+
+  return enhanceWithClickOutside(WrappedTarget);
+})();
+
+class TargetWithPassedProps extends React.Component {
+  constructor() {
+    super();
+    this.state = { text: 'waiting for click outside' };
+  }
+
+  handleClickOutside() {
+    this.setState({ text: new Date().toString() });
+  }
+
+  render() {
+    return (
+      <WrappedTarget handleClickOutside={this.handleClickOutside.bind(this)}>
+        {this.state.text}
+      </WrappedTarget>
+    );
+  }
+}
+
 const Root = () => (
   <div>
     <Target />
+    <TargetWithPassedProps />
     <button style={style}>Button Element</button>
   </div>
 );

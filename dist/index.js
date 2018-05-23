@@ -45,8 +45,12 @@ function enhanceWithClickOutside(Component) {
       key: 'handleClickOutside',
       value: function handleClickOutside(e) {
         var domNode = this.__domNode;
-        if ((!domNode || !domNode.contains(e.target)) && this.__wrappedInstance && typeof this.__wrappedInstance.handleClickOutside === 'function') {
-          this.__wrappedInstance.handleClickOutside(e);
+        if ((!domNode || !domNode.contains(e.target)) && this.__wrappedInstance) {
+          if (typeof this.__wrappedInstance.handleClickOutside === 'function') {
+            this.__wrappedInstance.handleClickOutside(e);
+          } else if (typeof this.__wrappedInstance.props.handleClickOutside === 'function') {
+            this.__wrappedInstance.props.handleClickOutside(e);
+          }
         }
       }
     }, {
