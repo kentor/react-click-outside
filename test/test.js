@@ -226,6 +226,66 @@ describe('enhanceWithClickOutside', () => {
     expect(typeof instance.wrappedInstanceMethod).toBe('function');
   });
 
+  it('works fine with handleClickOutside passed though the props', () => {
+    const clickInsideSpy = jest.fn();
+    const clickOutsideSpy = jest.fn();
+
+    const EnhancedComponent = (() => {
+      class WrappedComponent extends React.Component {
+        constructor() {
+          super();
+          this.handleClick = this.handleClick.bind(this);
+        }
+
+        handleClick() {
+          clickInsideSpy();
+        }
+
+        render() {
+          return (
+            <div id="enhancedNode" onClick={this.handleClick}>
+              <div id="nestedNode" />
+            </div>
+          );
+        }
+      }
+
+      return enhanceWithClickOutside(WrappedComponent);
+    })();
+
+    class Root extends React.Component {
+      render() {
+        return (
+          <div>
+            <EnhancedComponent handleClickOutside={clickOutsideSpy} />
+            <div id="outsideNode" />
+          </div>
+        );
+      }
+    }
+
+    wrapper = mount(<Root />);
+
+    const enhancedNode = wrapper.find('#enhancedNode').getDOMNode();
+    const nestedNode = wrapper.find('#nestedNode').getDOMNode();
+    const outsideNode = wrapper.find('#outsideNode').getDOMNode();
+
+    simulateClick(enhancedNode);
+    expect(clickInsideSpy.mock.calls.length).toBe(1);
+    expect(clickOutsideSpy.mock.calls.length).toBe(0);
+
+    simulateClick(nestedNode);
+    expect(clickInsideSpy.mock.calls.length).toBe(2);
+    expect(clickOutsideSpy.mock.calls.length).toBe(0);
+
+    // Stop propagation in the outside node should not prevent the
+    // handleOutsideClick handler from being called
+    outsideNode.addEventListener('click', e => e.stopPropagation());
+
+    const event = simulateClick(outsideNode);
+    expect(clickOutsideSpy).toHaveBeenCalledWith(event);
+  });
+
   describe('displayName', () => {
     it('gets set for React.createClass', () => {
       const ReactClass = createReactClass({
