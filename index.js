@@ -28,7 +28,10 @@ function enhanceWithClickOutside(Component: React.ComponentType<*>) {
     handleClickOutside(e) {
       const domNode = this.__domNode;
       if (
-        (!domNode || !domNode.contains(e.target)) &&
+        (!domNode ||
+          (domNode.contains
+            ? !domNode.contains(e.target)
+            : !domNode.base.contains(e.target))) &&
         this.__wrappedInstance &&
         typeof this.__wrappedInstance.handleClickOutside === 'function'
       ) {
