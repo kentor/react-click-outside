@@ -2,9 +2,10 @@
   "name": "react-click-outside",
   "version": "3.0.1",
   "description": "A component wrapper that provides click outside detection.",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "unpkg": "dist/index.umd.js",
   "scripts": {
-    "build": "npm test && babel -d dist index.js",
+    "build": "npm test && rollup -c",
     "demo": "budo demo/app.js -- -t babelify",
     "lint": "eslint .",
     "test": "jest",
@@ -28,6 +29,7 @@
   "homepage": "https://github.com/kentor/react-click-outside",
   "devDependencies": {
     "babel-cli": "6.26.0",
+    "babel-core": "^6.0.0",
     "babel-eslint": "8.2.1",
     "babel-jest": "21.2.0",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
@@ -45,7 +47,12 @@
     "jest": "21.2.1",
     "react": "16.0.0",
     "react-dom": "16.0.0",
-    "react-test-renderer": "16.0.0"
+    "react-test-renderer": "16.0.0",
+    "rollup": "^0.62.0",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-uglify": "^4.0.0"
   },
   "dependencies": {
     "hoist-non-react-statics": "^2.1.1"
