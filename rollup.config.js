@@ -5,19 +5,26 @@ const uglify = require('rollup-plugin-uglify');
 
 const baseConfig = {
   input: './index.js',
-  plugins: [babel(), nodeResolve(), commonjs()],
+  external: ['react', 'react-dom'],
 };
 
-const commonjsConfig = Object.assign({}, baseConfig, {
-  external: ['hoist-non-react-statics', 'react', 'react-dom'],
-  output: {
-    file: 'dist/index.cjs.js',
-    format: 'cjs',
-  },
+const cjsAndEsConfig = Object.assign({}, baseConfig, {
+  plugins: [babel(), nodeResolve(), commonjs()],
+  external: baseConfig.external.concat('hoist-non-react-statics'),
+  output: [
+    {
+      file: 'dist/index.cjs.js',
+      format: 'cjs',
+    },
+    {
+      file: 'dist/index.es.js',
+      format: 'es',
+    },
+  ],
 });
 
 const umdConfig = Object.assign({}, baseConfig, {
-  external: ['react', 'react-dom'],
+  plugins: [babel(), nodeResolve(), commonjs()],
   output: {
     globals: {
       react: 'React',
@@ -29,7 +36,7 @@ const umdConfig = Object.assign({}, baseConfig, {
   },
 });
 
-const umdMinConfig = Object.assign({}, baseConfig, {
+const umdMinConfig = Object.assign({}, umdConfig, {
   plugins: [
     babel(),
     nodeResolve(),
@@ -43,16 +50,9 @@ const umdMinConfig = Object.assign({}, baseConfig, {
       },
     }),
   ],
-  external: ['react', 'react-dom'],
-  output: {
-    globals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-    },
+  output: Object.assign({}, umdConfig.output, {
     file: 'dist/index.umd.min.js',
-    format: 'umd',
-    name: 'ReactClickOutside',
-  },
+  }),
 });
 
-module.exports = [commonjsConfig, umdConfig, umdMinConfig];
+module.exports = [cjsAndEsConfig, umdConfig, umdMinConfig];
