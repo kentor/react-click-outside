@@ -29,7 +29,7 @@
   "homepage": "https://github.com/kentor/react-click-outside",
   "devDependencies": {
     "babel-cli": "6.26.0",
-    "babel-core": "^6.0.0",
+    "babel-core": "6.26.0",
     "babel-eslint": "8.2.1",
     "babel-jest": "21.2.0",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
