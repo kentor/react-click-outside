@@ -48,6 +48,6 @@
     "react-test-renderer": "16.0.0"
   },
   "dependencies": {
-    "hoist-non-react-statics": "^2.1.1"
+    "hoist-non-react-statics": ">=2.1.1 <4.0.0"
   }
 }
