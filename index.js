@@ -5,7 +5,8 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 function enhanceWithClickOutside(Component: React.ComponentType<*>) {
-  const componentName = Component.displayName || Component.name;
+  const componentName =
+    Component.displayName || Component.name || 'WrappedComponent';
 
   class EnhancedComponent extends React.Component<*> {
     __domNode: *;
@@ -27,12 +28,13 @@ function enhanceWithClickOutside(Component: React.ComponentType<*>) {
 
     handleClickOutside(e) {
       const domNode = this.__domNode;
+      const wrappedInstance: any = this.__wrappedInstance;
       if (
         (!domNode || !domNode.contains(e.target)) &&
-        this.__wrappedInstance &&
-        typeof this.__wrappedInstance.handleClickOutside === 'function'
+        wrappedInstance &&
+        typeof wrappedInstance.handleClickOutside === 'function'
       ) {
-        this.__wrappedInstance.handleClickOutside(e);
+        wrappedInstance.handleClickOutside(e);
       }
     }
 
