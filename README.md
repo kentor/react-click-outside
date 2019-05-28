@@ -53,6 +53,24 @@ module.exports = enhanceWithClickOutside(Dropdown);
 **Note:** There will be no error thrown if `handleClickOutside` is not
 implemented.
 
+### hook
+
+```js
+const { useClickOutside } = require('react-click-outside');
+const React = require('react');
+
+const Dropdown = () => {
+  const [isOpened, setIsOpened] = React.useState(false);
+  const onClickOutside = React.useCallback((e) => {
+    setIsOpened(false);
+  }, [isOpened]);
+  const clickOutsideRef = useClickOutside(onClickOutside);
+  return <div ref={clickOutsideRef}>...</div>;
+};
+
+module.exports = Dropdown;
+```
+
 ### `wrappedRef` prop
 
 Use the `wrappedRef` prop to get access to the wrapped component instance. For

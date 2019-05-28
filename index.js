@@ -59,4 +59,29 @@ function enhanceWithClickOutside(Component: React.ComponentType<*>) {
   return hoistNonReactStatic(EnhancedComponent, Component);
 }
 
+function useClickOutside(onClickOutside: (e: Event) => void) {
+  const [domNode, setDomNode] = React.useState(null);
+
+  React.useEffect(
+    () => {
+      const onClick = (e: Event) => {
+        if ((!domNode || !domNode.contains(e.target)) && onClickOutside)
+          onClickOutside(e);
+      };
+
+      document.addEventListener('click', onClick, true);
+      return () => {
+        document.removeEventListener('click', onClick, true);
+      };
+    },
+    [domNode, onClickOutside]
+  );
+
+  const refCallback = React.useCallback(setDomNode, [onClickOutside]);
+
+  return refCallback;
+}
+
+enhanceWithClickOutside.useClickOutside = useClickOutside;
+
 module.exports = enhanceWithClickOutside;
