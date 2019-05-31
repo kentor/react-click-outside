@@ -5,7 +5,8 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 function enhanceWithClickOutside(Component: React.ComponentType<*>) {
-  const componentName = Component.displayName || Component.name;
+  const componentName =
+    Component.displayName || Component.name || 'WrappedComponent';
 
   class EnhancedComponent extends React.Component<*> {
     __domNode: *;
@@ -27,12 +28,13 @@ function enhanceWithClickOutside(Component: React.ComponentType<*>) {
 
     handleClickOutside(e) {
       const domNode = this.__domNode;
+      const wrappedInstance: any = this.__wrappedInstance;
       if (
         (!domNode || !domNode.contains(e.target)) &&
-        this.__wrappedInstance &&
-        typeof this.__wrappedInstance.handleClickOutside === 'function'
+        wrappedInstance &&
+        typeof wrappedInstance.handleClickOutside === 'function'
       ) {
-        this.__wrappedInstance.handleClickOutside(e);
+        wrappedInstance.handleClickOutside(e);
       }
     }
 
@@ -56,5 +58,30 @@ function enhanceWithClickOutside(Component: React.ComponentType<*>) {
 
   return hoistNonReactStatic(EnhancedComponent, Component);
 }
+
+function useClickOutside(onClickOutside: (e: Event) => void) {
+  const [domNode, setDomNode] = React.useState(null);
+
+  React.useEffect(
+    () => {
+      const onClick = (e: Event) => {
+        if ((!domNode || !domNode.contains(e.target)) && onClickOutside)
+          onClickOutside(e);
+      };
+
+      document.addEventListener('click', onClick, true);
+      return () => {
+        document.removeEventListener('click', onClick, true);
+      };
+    },
+    [domNode, onClickOutside]
+  );
+
+  const refCallback = React.useCallback(setDomNode, [onClickOutside]);
+
+  return refCallback;
+}
+
+enhanceWithClickOutside.useClickOutside = useClickOutside;
 
 module.exports = enhanceWithClickOutside;

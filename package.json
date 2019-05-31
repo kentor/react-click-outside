@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npm test && babel -d dist index.js",
     "demo": "budo demo/app.js -- -t babelify",
+    "demo:hook": "budo demo/hook.js -- -t babelify",
     "lint": "eslint .",
     "test": "jest",
     "test:ci": "flow && npm run lint && npm run test"
@@ -38,14 +39,14 @@
     "budo": "10.0.4",
     "create-react-class": "15.6.2",
     "enzyme": "3.0.0",
-    "enzyme-adapter-react-16": "1.0.0",
+    "enzyme-adapter-react-16": "^1.13.2",
     "eslint": "4.8.0",
     "eslint-config-kentor": "5.1.0",
-    "flow-bin": "0.65.0",
+    "flow-bin": "^0.98.1",
     "jest": "21.2.1",
-    "react": "16.0.0",
-    "react-dom": "16.0.0",
-    "react-test-renderer": "16.0.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-test-renderer": "^16.8.6"
   },
   "dependencies": {
     "hoist-non-react-statics": "^2.1.1"
